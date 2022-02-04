@@ -1,10 +1,10 @@
 locals {
   operator_name = "bas-operator"
-  name          = "bas"
+  name          = "bas-instance"
   bin_dir       = module.setup_clis.bin_dir
   operator_chart_dir = "${path.module}/charts/bas-operator"
   operator_yaml_dir  = "${path.cwd}/.tmp/${local.name}/chart/${local.operator_name}"
-  chart_dir          = "${path.module}/charts/bas"
+  chart_dir          = "${path.module}/charts/bas-instance"
   yaml_dir           = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
   secret_dir         = "${path.cwd}/.tmp/${local.name}/secrets"
   values_file        = "values-${var.server_name}.yaml"
@@ -52,11 +52,11 @@ resource null_resource setup_operator_gitops {
 
   triggers = {
     name = local.operator_name
-    namespace = var.namespace
     yaml_dir = local.operator_yaml_dir
+    type = local.operator_type
+    namespace = var.namespace
     server_name = var.server_name
     layer = local.layer
-    type = local.operator_type
     git_credentials = yamlencode(var.git_credentials)
     gitops_config   = yamlencode(var.gitops_config)
     bin_dir = local.bin_dir
@@ -128,12 +128,12 @@ resource null_resource setup_gitops {
   depends_on = [null_resource.create_yaml, null_resource.create_secrets_yaml, module.seal_secrets]
 
   triggers = {
-    name = local.operator_name
-    namespace = var.namespace
+    name = local.name
     yaml_dir = module.seal_secrets.dest_dir
+    type = local.type
+    namespace = var.namespace
     server_name = var.server_name
     layer = local.layer
-    type = local.type
     git_credentials = yamlencode(var.git_credentials)
     gitops_config   = yamlencode(var.gitops_config)
     bin_dir = local.bin_dir
