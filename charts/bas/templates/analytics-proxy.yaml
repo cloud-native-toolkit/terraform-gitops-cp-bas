@@ -1,0 +1,29 @@
+apiVersion: bas.ibm.com/v1
+kind: AnalyticsProxy
+metadata:
+  name: analyticsproxy-{{ .Release.Namespace }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  allowed_domains: "*"
+  db_archive:
+    frequency: '@monthly'
+    retention_age: 6
+    persistent_storage:
+      storage_class: {{ .Values.db_archive.storage_class | default .Values.global.storage_class }}
+      storage_size: {{ .Values.db_archive.storage_size }}
+  airgapped:
+    enabled: {{ .Values.airgapped.enabled }}
+    backup_deletion_frequency: '@daily'
+    backup_retention_period: 7
+  event_scheduler_frequency: {{ .Values.event_scheduler_frequency | quote }}
+  ibmproxyurl: {{ .Values.ibmproxyurl }}
+  image_pull_secret: {{ .Values.image_pull_secret }}
+  postgres:
+    storage_class: {{ .Values.postgres.storage_class | default .Values.global.storage_class }}
+    storage_size: {{ .Values.postgres.storage_size }}
+  kafka:
+    storage_class: {{ .Values.kafka.storage_class | default .Values.global.storage_class }}
+    storage_size: {{ .Values.kafka.storage_size }}
+    zookeeper_storage_class: {{ .Values.kafka.zookeeper_storage_class | default .Values.global.storage_class }}
+    zookeeper_storage_size: {{ .Values.kafka.zookeeper_storage_size }}
+  env_type: {{ .Values.envType }}
