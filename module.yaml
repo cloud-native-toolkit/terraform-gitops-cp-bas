@@ -1,10 +1,11 @@
 name: gitops-cp-bas
 alias: bas
 type: gitops
-description: Module to populate a gitops repo with the resources to provision cp-bas
+description: Module to populate a gitops repo with the resources to provision the Behavior Analysis Service from the IBM Cloud Pak
 tags:
-  - tools
-  - gitops
+  - cloud pak
+  - behavior analysis service
+  - bas
 softwareProvider: ibm-cp
 versions:
   - platforms:
