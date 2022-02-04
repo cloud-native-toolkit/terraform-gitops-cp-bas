@@ -1,9 +1,11 @@
 name: gitops-cp-bas
+alias: bas
 type: gitops
 description: Module to populate a gitops repo with the resources to provision cp-bas
 tags:
   - tools
   - gitops
+softwareProvider: ibm-cp
 versions:
   - platforms:
       - kubernetes
@@ -39,4 +41,3 @@ versions:
         moduleRef:
           id: gitops
           output: sealed_secrets_cert
-softwareProvider: ibm-cp

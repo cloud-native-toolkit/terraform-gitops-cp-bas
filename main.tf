@@ -7,7 +7,21 @@ locals {
   chart_dir          = "${path.module}/charts/bas"
   yaml_dir           = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
   secret_dir         = "${path.cwd}/.tmp/${local.name}/secrets"
+  values_file        = "values-${var.server_name}.yaml"
   values_content = {
+    global = {
+      storage_class = var.default_storage_class
+    }
+    db_archive = {
+      storage_class = var.db_archive_storage_class
+    }
+    postgres = {
+      storage_class = var.postgres_storage_class
+    }
+    kafka = {
+      storage_class = var.kafka_storage_class
+      zookeeper_storage_class = var.zookeeper_storage_class
+    }
   }
   layer = "services"
   operator_type  = "operator"
@@ -76,7 +90,11 @@ resource null_resource create_yaml {
   }
 
   provisioner "local-exec" {
-    command = "${path.module}/scripts/create-yaml.sh '${self.triggers.name}' '${self.triggers.chart_dir}' '${self.triggers.yaml_dir}'"
+    command = "${path.module}/scripts/create-yaml.sh '${self.triggers.name}' '${self.triggers.chart_dir}' '${self.triggers.yaml_dir}' '${local.values_file}'"
+
+    environment = {
+      VALUES_SERVER_CONTENT = yamlencode(local.values_content)
+    }
   }
 }
 
@@ -90,7 +108,7 @@ resource null_resource create_secrets_yaml {
       DB_USER = var.dbuser
       DB_PASSWORD = var.dbpassword
       GRAFANA_USER = var.grafanauser
-      GRAFANA_PASSWORD = var.grafanapasswod
+      GRAFANA_PASSWORD = var.grafanapassword
     }
   }
 }
@@ -122,7 +140,7 @@ resource null_resource setup_gitops {
   }
 
   provisioner "local-exec" {
-    command = "${self.triggers.bin_dir}/igc gitops-module '${self.triggers.name}' -n '${self.triggers.namespace}' --contentDir '${self.triggers.yaml_dir}' --serverName '${self.triggers.server_name}' -l '${self.triggers.layer}' --type '${self.triggers.type}'"
+    command = "${self.triggers.bin_dir}/igc gitops-module '${self.triggers.name}' -n '${self.triggers.namespace}' --contentDir '${self.triggers.yaml_dir}' --serverName '${self.triggers.server_name}' -l '${self.triggers.layer}' --type '${self.triggers.type}' --valueFiles 'values.yaml,${local.values_file}'"
 
     environment = {
       GIT_CREDENTIALS = nonsensitive(self.triggers.git_credentials)
