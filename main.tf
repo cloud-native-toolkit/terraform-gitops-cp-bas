@@ -119,7 +119,7 @@ module seal_secrets {
   source = "github.com/cloud-native-toolkit/terraform-util-seal-secrets.git?ref=v1.0.0"
 
   source_dir    = local.secret_dir
-  dest_dir      = local.yaml_dir
+  dest_dir      = "${local.yaml_dir}/templates"
   kubeseal_cert = var.kubeseal_cert
   label         = local.name
 }
@@ -129,7 +129,7 @@ resource null_resource setup_gitops {
 
   triggers = {
     name = local.name
-    yaml_dir = module.seal_secrets.dest_dir
+    yaml_dir = local.yaml_dir
     type = local.type
     namespace = var.namespace
     server_name = var.server_name
