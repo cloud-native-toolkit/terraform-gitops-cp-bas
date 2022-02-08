@@ -1,0 +1,12 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: {{ include "bas-operator.name" . }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.syncWave | default "-5" | quote }}
+spec:
+  channel: {{ .Values.channel }}
+  installPlanApproval: {{ .Values.installPlanApproval }}
+  name: {{ include "bas-operator.name" . }}
+  source: {{ .Values.source }}
+  sourceNamespace: {{ .Values.sourceNamespace }}

@@ -1,0 +1,31 @@
+# Default values for bas.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  storage_class: ""
+
+db_archive:
+  storage_class: ""
+  storage_size: 20G
+
+postgres:
+  storage_class: ""
+  storage_size: 20G
+
+kafka:
+  storage_class: ""
+  storage_size: 20G
+  zookeeper_storage_class: ""
+  zookeeper_storage_size: 20G
+
+airgapped:
+  enabled: false
+
+event_scheduler_frequency: "*/10 * * * *"
+
+ibmproxyurl: "https://iaps.ibm.com"
+
+image_pull_secret: bas-images-pull-secret
+
+envType: lite
