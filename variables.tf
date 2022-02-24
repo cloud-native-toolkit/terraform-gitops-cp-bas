@@ -112,23 +112,19 @@ variable "default_storage_class" {
 variable "db_archive_storage_class" {
   type        = string
   description = "Storage class for the db_archive resource"
-  default     = ""
 }
 
 variable "postgres_storage_class" {
   type        = string
   description = "Storage class for the postgres resource"
-  default     = ""
 }
 
 variable "kafka_storage_class" {
   type        = string
   description = "Storage class for the kafka resource"
-  default     = ""
 }
 
 variable "zookeeper_storage_class" {
   type        = string
   description = "Storage class for the zookeeper resource"
-  default     = ""
 }
