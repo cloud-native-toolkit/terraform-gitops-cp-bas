@@ -7,6 +7,11 @@ module "gitops_module" {
   namespace = module.gitops_namespace.name
   kubeseal_cert = module.gitops.sealed_secrets_cert
   default_storage_class = "ibmc-vpc-block-10iops-tier"
+  db_archive_storage_class="portworx-db2-rwx-sc"
+  postgres_storage_class="ibmc-vpc-block-10iops-tier"
+  zookeeper_storage_class="ibmc-vpc-block-10iops-tier"
+  kafka_storage_class="ibmc-vpc-block-10iops-tier"
+
   grafanapassword = "grafanapassword"
   dbpassword = "dbpassword"
 }
