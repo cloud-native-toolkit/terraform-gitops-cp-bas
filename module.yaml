@@ -18,8 +18,13 @@ versions:
           - source: github.com/cloud-native-toolkit/terraform-tools-gitops.git
             version: '>= 1.1.0'
       - id: namespace
+        discriminator: ibm-bas
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git
+            version: '>= 1.0.0'
+      - id: sc-manager
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-util-storage-class-manager.git
             version: '>= 1.0.0'
     variables:
       - name: gitops_config
@@ -42,3 +47,23 @@ versions:
         moduleRef:
           id: gitops
           output: sealed_secrets_cert
+      - name: db_archive_storage_class
+        moduleRef:
+          id: sc-manager
+          outout: rwx_storage_class
+      - name: default_storage_class
+        moduleRef:
+          id: sc-manager
+          outout: block_storage_class
+      - name: postgres_storage_class
+        moduleRef:
+          id: sc-manager
+          outout: block_storage_class
+      - name: zookeeper_storage_class
+        moduleRef:
+          id: sc-manager
+          outout: block_storage_class
+      - name: kafka_storage_class
+        moduleRef:
+          id: sc-manager
+          outout: block_storage_class
