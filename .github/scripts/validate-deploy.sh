@@ -3,14 +3,6 @@
 GIT_REPO=$(cat git_repo)
 GIT_TOKEN=$(cat git_token)
 
-export KUBECONFIG=$(cat .kubeconfig)
-NAMESPACE=$(cat .namespace)
-COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
-BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
-SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
-LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
-TYPE=$(jq -r '.type // "base"' gitops-output.json)
-
 BIN_DIR=$(cat .bin_dir)
 
 export PATH="${BIN_DIR}:${PATH}"
@@ -19,6 +11,19 @@ if ! command -v kubectl 1> /dev/null 2> /dev/null; then
   echo "kubectl cli not found" >&2
   exit 1
 fi
+
+if ! command -v jq 1> /dev/null 2> /dev/null; then
+  echo "jq cli not found" >&2
+  exit 1
+fi
+
+export KUBECONFIG=$(cat .kubeconfig)
+NAMESPACE=$(cat .namespace)
+COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
+BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
+SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
+LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
+TYPE=$(jq -r '.type // "base"' gitops-output.json)
 
 mkdir -p .testrepo
 
