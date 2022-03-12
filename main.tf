@@ -33,6 +33,8 @@ locals {
 
 module setup_clis {
   source = "github.com/cloud-native-toolkit/terraform-util-clis.git"
+
+  clis = ["igc", "jq", "kubectl"]
 }
 
 resource null_resource create_operator_yaml {
@@ -105,6 +107,7 @@ resource null_resource create_secrets_yaml {
     command = "${path.module}/scripts/create-secrets.sh '${var.namespace}' '${local.secret_dir}'"
 
     environment = {
+      BIN_DIR = module.setup_clis.bin_dir
       DB_USER = var.dbuser
       DB_PASSWORD = var.dbpassword
       GRAFANA_USER = var.grafanauser

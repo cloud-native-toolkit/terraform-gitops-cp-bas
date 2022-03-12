@@ -3,6 +3,13 @@
 NAMESPACE="$1"
 DEST_DIR="$2"
 
+export PATH="${BIN_DIR}:${PATH}"
+
+if ! command -v kubectl 1> /dev/null 2> /dev/null; then
+  echo "kubectl cli not found" >&2
+  exit 1
+fi
+
 mkdir -p "${DEST_DIR}"
 
 if [[ -z "${DB_USER}" ]] || [[ -z "${DB_PASSWORD}" ]] || [[ -z "${GRAFANA_USER}" ]] || [[ -z "${GRAFANA_PASSWORD}" ]]; then
