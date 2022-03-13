@@ -50,20 +50,20 @@ versions:
       - name: db_archive_storage_class
         moduleRef:
           id: sc-manager
-          outout: rwx_storage_class
+          output: rwx_storage_class
       - name: default_storage_class
         moduleRef:
           id: sc-manager
-          outout: block_storage_class
+          output: block_storage_class
       - name: postgres_storage_class
         moduleRef:
           id: sc-manager
-          outout: block_storage_class
+          output: block_storage_class
       - name: zookeeper_storage_class
         moduleRef:
           id: sc-manager
-          outout: block_storage_class
+          output: block_storage_class
       - name: kafka_storage_class
         moduleRef:
           id: sc-manager
-          outout: block_storage_class
+          output: block_storage_class
