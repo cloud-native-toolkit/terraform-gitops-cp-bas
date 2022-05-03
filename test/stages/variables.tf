@@ -93,6 +93,10 @@ variable "rwx_storage_class" {
   default = "portworx-db2-rwx-sc"
 }
 
+variable "rwo_storage_class" {
+  default = ""
+}
+
 variable "file_storage_class" {
   default = ""
 }
