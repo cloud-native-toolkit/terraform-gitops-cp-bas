@@ -4,4 +4,5 @@ module "sc_manager" {
   rwx_storage_class = var.rwx_storage_class
   file_storage_class = var.file_storage_class
   block_storage_class = var.block_storage_class
+  rwo_storage_class = var.rwo_storage_class
 }
