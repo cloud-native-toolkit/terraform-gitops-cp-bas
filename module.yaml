@@ -55,16 +55,16 @@ versions:
       - name: default_storage_class
         moduleRef:
           id: sc-manager
-          output: block_storage_class
+          output: rwo_storage_class
       - name: postgres_storage_class
         moduleRef:
           id: sc-manager
-          output: block_storage_class
+          output: rwo_storage_class
       - name: zookeeper_storage_class
         moduleRef:
           id: sc-manager
-          output: block_storage_class
+          output: rwo_storage_class
       - name: kafka_storage_class
         moduleRef:
           id: sc-manager
-          output: block_storage_class
+          output: rwo_storage_class
