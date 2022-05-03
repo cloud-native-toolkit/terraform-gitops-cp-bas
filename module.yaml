@@ -26,6 +26,7 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-util-storage-class-manager.git
             version: '>= 1.0.0'
+        optional: true
     variables:
       - name: gitops_config
         moduleRef:
