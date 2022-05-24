@@ -34,3 +34,15 @@ output "type" {
   value       = local.type
   depends_on  = [null_resource.setup_gitops]
 }
+
+output "dbpassword" {
+  description = "The value that will be used for the mongodb database password. If not provided, a random value will be generated."
+  sensitive   = true
+  value       = local.dbpassword
+}
+
+output "grafanapassword" {
+  description = "The value that will be used for the grafana password. If not provided, a random value will be generated."
+  sensitive   = true
+  value       = local.grafanapassword
+}

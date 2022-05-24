@@ -29,12 +29,26 @@ locals {
   application_branch = "main"
   namespace = var.namespace
   layer_config = var.gitops_config[local.layer]
+  dbpassword = var.dbpassword != null && var.dbpassword != "" ? var.dbpassword : random_password.dbpassword.result
+  grafanapassword = var.grafanapassword != null && var.grafanapassword != "" ? var.grafanapassword : random_password.grafanapassword.result
 }
 
 module setup_clis {
   source = "github.com/cloud-native-toolkit/terraform-util-clis.git"
 
   clis = ["igc", "jq", "kubectl"]
+}
+
+resource random_password dbpassword {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource random_password grafanapassword {
+  length           = 16
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 resource null_resource create_operator_yaml {
@@ -109,9 +123,9 @@ resource null_resource create_secrets_yaml {
     environment = {
       BIN_DIR = module.setup_clis.bin_dir
       DB_USER = var.dbuser
-      DB_PASSWORD = var.dbpassword
+      DB_PASSWORD = local.dbpassword
       GRAFANA_USER = var.grafanauser
-      GRAFANA_PASSWORD = var.grafanapassword
+      GRAFANA_PASSWORD = local.grafanapassword
     }
   }
 }

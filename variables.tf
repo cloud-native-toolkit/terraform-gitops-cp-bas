@@ -88,8 +88,9 @@ variable "dbuser" {
 
 variable "dbpassword" {
   type        = string
-  description = "The (mongodb) database password"
+  description = "The value that will be used for the mongodb database password. If not provided, a random value will be generated."
   sensitive   = true
+  default     = ""
 }
 
 variable "grafanauser" {
@@ -100,8 +101,9 @@ variable "grafanauser" {
 
 variable "grafanapassword" {
   type        = string
-  description = "The grafana password"
+  description = "The value that will be used for the grafana password. If not provided, a random value will be generated."
   sensitive   = true
+  default     = ""
 }
 
 variable "default_storage_class" {
