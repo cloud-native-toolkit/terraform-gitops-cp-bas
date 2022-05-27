@@ -27,8 +27,7 @@ This module makes use of the output from other modules:
 
 - GitOps - github.com/cloud-native-toolkit/terraform-tools-gitops.git
 - Namespace - github.com/cloud-native-toolkit/terraform-gitops-namespace.git
-- MongoDB CE ?
-- Grafana ?
+- Storage Class Manager - github.com/cloud-native-toolkit/terraform-util-storage-class-manager.git
 
 ## Example usage
 
